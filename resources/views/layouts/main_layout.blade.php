@@ -28,7 +28,21 @@
             main {
                 flex: 1 0 auto;
             }
+            .sidenav, #sidenav-overlay {
+                top: 65px;
+                height: 65%;
+            }
 
+
+            /*.divider {
+                margin: 0.5em 0 0.5em 0;
+                border: 0;
+                height: 1px;
+                width: 100%;
+                display: block;
+                background-color: blue;
+                background-image: linear-gradient(to right,pink,blue,pink);
+            }*/
         </style>
   @yield('style')
 </head>
