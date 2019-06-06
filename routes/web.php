@@ -28,7 +28,6 @@ Route::get('/',function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
 Route::get('/homepage', function(){
 	return view('content');
 });
@@ -38,14 +37,14 @@ Route::get('/courses', function(){
 	return view('courses');
 });
 
+//Route::get('/task0', function(){
+//	return view('tasks.task0');
+//});
 Route::get('/task1', function(){
 	return view('tasks.task1');
 });
 Route::get('/task2', function(){
 	return view('tasks.task2');
-});
-Route::get('/task3', function(){
-	return view('tasks.task3');
 });
 
 Route::get('/quiz',function(){
@@ -58,3 +57,7 @@ Route::get('/tasks/task1',function(){
 });
 Route::get('/signout', 'AuthController@signout');
 
+;
+
+Route::get('/tasks/{task}/create', 'mcqcontroller@create');
+Route::post('/tasks/{task}', 'mcqcontroller@store');
