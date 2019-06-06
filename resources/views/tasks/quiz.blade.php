@@ -1,48 +1,85 @@
 @extends('layouts.main_layout')
-
+@section('style')
+<style>
+	.collection-item > label > span{
+		color:black;
+	}
+	.horizontal-line{
+		margin: 0.5em 0 0.5em 0;
+		border :0;
+		height:1px;
+		width:100%;
+		display:block;
+		background-color: blue;
+		background-image:linear-gradient(to right,#DFE720,#1CD29A,#DFE720);
+	}
+	.subheader{
+		 background-image: linear-gradient(to left, #e3ce86, #e1b47e, #d89c7b, #c8877b, #b1757b);
+		 height: 12em;
+	}
+</style>
 
 
 @section('content')
 	
-	@include('includes.sidebar')
+	<div class="row subheader"></div>
 
-	<div class='container'>
-		<div id="display">
-		</div> 
 
-		<form method="POST" action='/tasks/{{$mcqs[0]->task}}'>
-			@csrf
-			
-			@foreach($mcqs as $question)
-			<label for="{{$question->question_id}}"><b>{!!$question->question_text!!}</b><br></label>
-		    <label>
-		    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}1" value="1"> 
-		    	<span>{!!$question->option_1!!}</span><br>
-		    </label>
-		    <label>
-		    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}2" value="2"> 
-		    	<span>{!!$question->option_2!!}</span><br>
-		    </label>
-		    <label>
-		    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}3" value="3"> 
-		    	<span>{!!$question->option_3!!}</span><br>
-		    </label>
-		    <label>
-		    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}4" value="4"> 
-		    	<span>{!!$question->option_4!!}</span><br>
-		    </label>
+	<div class="container" style="margin-top: -7%;">
+		<div class="card-panel green lighten-5">
+			<div id="display"></div> 
 
-		    
-			<!--<li>{!!$question->question_text!!}</li>
-			{!!$question->option_1!!}</li>-->
-			@endforeach
-			<br><br>
-			<input type="submit" class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" value="Submit">
-			<!--<button class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" value="Submit">Submit</button>  class="btn waves-effect waves-light"-->
-			<input type="hidden" name="time" id="time"/>
-			<br><br>
-			
-		</form>
+			<form method="POST" action='/tasks/{{$mcqs[0]->task}}'>
+				@csrf
+				
+				@foreach($mcqs as $question)
+				<div>
+					<label for="{{$question->question_id}}"><b>{!!$question->question_text!!}</b><br></label>
+				</div>
+				<ul class="collection">
+					<li class="collection-item " >
+						<label>
+			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}1" value="1"> 
+			    			<span>{!!$question->option_1!!}</span><br>
+			    		</label>
+					</li>
+					<li class="collection-item " >
+						<label>
+			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}2" value="2"> 
+			    			<span>{!!$question->option_2!!}</span><br>
+			    		</label>
+					</li>	
+					<li class="collection-item " >
+						<label>
+			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}3" value="3"> 
+			    			<span>{!!$question->option_3!!}</span><br>
+			    		</label>
+			    	</li>	
+			    	<li class="collection-item" >
+			    		<label>
+					    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}4" value="4"> 
+					    	<span>{!!$question->option_4!!}</span><br>
+					    </label>
+			    	</li>
+				</ul>
+			    
+			    
+
+			    <div class="horizontal-line"></div>
+				<!--<li>{!!$question->question_text!!}</li>
+				{!!$question->option_1!!}</li>-->
+				@endforeach
+				<br><br>
+				<button type="submit" class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" >
+					Submit
+					<i class="material-icons right">send</i>
+				</button> 
+				<!--<button class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" value="Submit">Submit</button>  class="btn waves-effect waves-light"-->
+				<input type="hidden" name="time" id="time"/>
+				<br><br>
+				
+			</form>
+		</div>	
 
 
 

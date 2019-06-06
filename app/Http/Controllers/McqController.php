@@ -13,7 +13,7 @@ use App\team_member_detail;
 use App\task_schedule;
 use App\team_course_map;
 
-class mcqcontroller extends Controller
+class McqController extends Controller
 {
     //
     public function create($id)
@@ -48,8 +48,17 @@ class mcqcontroller extends Controller
         //return $mcq_options;
         //echo $id;
         //return $mcqs;
-        return view('tasks.task',compact('mcqs','task_schedule','mcq_options'));
+        return view('tasks.quiz',compact('mcqs','task_schedule','mcq_options'));
     }
+
+
+
+
+
+
+
+
+
 
         public function store($id,mcq_master $mcq_master,Request $request)
     {
