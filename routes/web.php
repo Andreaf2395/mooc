@@ -48,5 +48,13 @@ Route::get('/task3', function(){
 	return view('tasks.task3');
 });
 
+Route::get('/quiz',function(){
+	return view('quiz');
+});
 
+
+Route::get('/tasks/task1',function(){
+	return view('tasks.task1');
+});
 Route::get('/signout', 'AuthController@signout');
+
