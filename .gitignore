@@ -9,3 +9,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.editorconfig
+.env.example
+artisan
+composer.lock
+composer.json
+webpack.mix.js
