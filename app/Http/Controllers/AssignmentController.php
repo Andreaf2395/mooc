@@ -80,9 +80,9 @@ class AssignmentController extends Controller
                 {
                     //before deadline and an instance of task exists along with assign_id, so the user uploads are updated
                     //task status might be 2 or 3
-                    Storage::deleteDirectory('public/task'.$id.'/team'.$team_member_detail->team_id);
-                    //delete already existing file containing directory
-                    //eg: team1 for instance
+                    $files = Storage::allFiles('public/task'.$id.'/team'.$team_member_detail->team_id);
+                    Storage::delete($files);
+                    //delete already existing files in the directory
                     $assignment=$this->assign($id,$sub_type,$request);
                     //update assignments table
 
