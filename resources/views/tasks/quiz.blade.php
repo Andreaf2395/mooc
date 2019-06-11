@@ -70,7 +70,7 @@
 				{!!$question->option_1!!}</li>-->
 				@endforeach
 				<br><br>
-				<button type="submit" class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" >
+				<button type="submit" class="btn waves-effect waves-light" id="submitbtn" {{ ($mcq_options||$time_up)?"disabled":"" }} >
 					Submit
 					<i class="material-icons right">send</i>
 				</button> 
@@ -103,12 +103,11 @@
 	<script>
 
 	    var mcq_options = {!!json_encode($mcq_options)!!};
-	    var deadline=new Date({!!json_encode($task_schedule->end_date)!!});
+	    var time_up={!!json_encode($time_up)!!};
 	    
-	    var today = new Date();
-	    //console.log(deadline);
+	    console.log(time_up);
 
-	    if(!mcq_options&&deadline>today)
+	    if(!mcq_options&&!time_up)
 	    {
 		    $( document ).ready(function() {
 		            $('#modal1').modal({
@@ -136,13 +135,13 @@
 
 
 
-        function myFunction(){
+        /*function myFunction(){
         	if(mcq_options||deadline<today)
         		{
         	    	$("#submitbtn").attr("disabled", true);
         	    	$("#submitbtn").attr("class",'waves-effect darken-0 btn');
         	    }
-        }
+        }*/
 
 
 

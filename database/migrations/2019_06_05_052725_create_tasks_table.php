@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->decimal('total_score')->default(0);
             $table->Integer('assign_id')->nullable();
             $table->foreign('team_id')->references('team_id')->on('team_course_maps')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('assign_id')->references('id')->on('assignments')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
