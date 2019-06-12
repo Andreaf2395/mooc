@@ -116,7 +116,7 @@ class AssignmentController extends Controller
         } 
 
 
-    	return redirect('/tasks/'.$id.'#assign');
+    	return redirect('/tasks/'.$id.'#assign')->withMessage('Your response is recorded');
     }
 
     public function assign($id,$sub_type,Request $request)

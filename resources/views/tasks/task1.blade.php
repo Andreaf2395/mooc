@@ -32,6 +32,15 @@
     
     <div id="assign" class="col s12  light-blue lighten-3 ">
 
+        <br>
+        @if (session('message'))            
+            <div class="card-panel green darken-1">
+                {{ session('message') }}
+            </div>
+            <br>
+        @endif
+        
+
         <form method="POST" action="/tasks/{{$task->task_id}}/assign" enctype="multipart/form-data">
             @csrf
             <h6>Select submission types</h6>
