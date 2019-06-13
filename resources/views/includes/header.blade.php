@@ -7,7 +7,7 @@
           <li ><a href="#">FAQ</a></li>
           <li style="font-size: 25px;">|</li>
           <li>
-            <a class="dropdown-trigger" href="#!" data-target="dropdown1"> {{ Auth::user()->name }}
+            <a class="dropdown-trigger" href="#!" data-target="dropdown1"> {{ Auth::user()->username }}
               <i  class="material-icons right large">arrow_drop_down</i>
             </a>
             <ul id="dropdown1" class="dropdown-content">

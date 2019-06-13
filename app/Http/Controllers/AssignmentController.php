@@ -13,6 +13,7 @@ use App\task_schedule;
 use App\team_course_map;
 use App\assignment;
 use App\submission_type;
+use Auth; 
 
 class AssignmentController extends Controller
 {
@@ -122,7 +123,7 @@ class AssignmentController extends Controller
     public function assign($id,$sub_type,Request $request)
     {
         
-        $team_member_detail=team_member_detail::where('login_id',auth()->id())->first();
+        $team_member_detail=team_member_detail::where('login_id',Auth::user()->id)->first();
         $current = Carbon::now();
         $task_status=task::firstornew(['team_id'=>$team_member_detail->team_id,'task_id'=>$id]);
 

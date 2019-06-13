@@ -29,7 +29,7 @@
 		<div class="card-panel green lighten-5">
 			<div id="display"></div> 
 
-			<form method="POST" action='/tasks/{{$mcqs[0]->task}}'>
+			<form method="POST" action='/tasks/{{$mcqs[0]->task}}/savemcq'>
 				@csrf
 				
 				@foreach($mcqs as $question)
@@ -39,25 +39,25 @@
 				<ul class="collection">
 					<li class="collection-item " >
 						<label>
-			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}1" value="1"> 
+			    			<input class="with-gap" type="radio" name="ques{{$question->question_id}}" id="ques{{$question->question_id}}_opt1" value="1"> 
 			    			<span>{!!$question->option_1!!}</span><br>
 			    		</label>
 					</li>
 					<li class="collection-item " >
 						<label>
-			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}2" value="2"> 
+			    			<input class="with-gap" type="radio" name="ques{{$question->question_id}}" id="ques{{$question->question_id}}_opt2" value="2"> 
 			    			<span>{!!$question->option_2!!}</span><br>
 			    		</label>
 					</li>	
 					<li class="collection-item " >
 						<label>
-			    			<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}3" value="3"> 
+			    			<input class="with-gap" type="radio" name="ques{{$question->question_id}}" id="ques{{$question->question_id}}_opt3" value="3"> 
 			    			<span>{!!$question->option_3!!}</span><br>
 			    		</label>
 			    	</li>	
 			    	<li class="collection-item" >
 			    		<label>
-					    	<input class="with-gap" type="radio" name="{{$question->question_id}}" id="{{$question->question_id}}4" value="4"> 
+					    	<input class="with-gap" type="radio" name="ques{{$question->question_id}}" id="ques{{$question->question_id}}_opt4" value="4"> 
 					    	<span>{!!$question->option_4!!}</span><br>
 					    </label>
 			    	</li>
@@ -70,11 +70,10 @@
 				{!!$question->option_1!!}</li>-->
 				@endforeach
 				<br><br>
-				<button type="submit" class="btn waves-effect waves-light" id="submitbtn" {{ ($mcq_options||$time_up)?"disabled":"" }} >
+				<button type="submit" class="btn waves-effect waves-light" id="submitbtn" {{ ($disable_btn)?"disabled":"" }} >
 					Submit
 					<i class="material-icons right">send</i>
 				</button> 
-				<!--<button class="btn waves-effect waves-light" id="submitbtn" onclick="myFunction()" value="Submit">Submit</button>  class="btn waves-effect waves-light"-->
 				<input type="hidden" name="time" id="time"/>
 				<br><br>
 				
@@ -83,7 +82,7 @@
 
 
 
-		<div id="modal1" class="modal green">
+	 <div id="modal1" class="modal green">
 		    <div class="row">
 		      <div class="col s8 offset-s2 center">
 		        <div class="modal-content" style="padding-top: 50px;
@@ -91,62 +90,62 @@
 		        <div><i class="material-icons large">school</i></div>
 		        <span id="testTitle"></span>
 		        <p>Quiz</p>
-		        <a onclick="CountDown(300,$('#display'))" class="modal-action modal-close waves-effect blue-grey darken-4 btn">Start</a>
+		        <a id="startbtn"  class="modal-action modal-close waves-effect blue-grey darken-4 btn">Start</a>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 
-
-
+ 
 	@section('scripts')
 	<script>
+		$( document ).ready(function() {
+	    	var mcq_options = {!!json_encode($mcq_options)!!};
+	    	var disable_btn={!!json_encode($disable_btn)!!};
+	    	var duration = {!!json_encode($duration)!!};
 
-	    var mcq_options = {!!json_encode($mcq_options)!!};
-	    var time_up={!!json_encode($time_up)!!};
-	    
-	    console.log(time_up);
-
-	    if(!mcq_options&&!time_up)
-	    {
-		    $( document ).ready(function() {
-		            $('#modal1').modal({
-		        opacity: 1,
-		    });
-		            $('#modal1').modal('open');
-		    });
-		}
-		else
-		{
-			var inputs = document.getElementsByTagName('input');
-			for(var i = 0; i < inputs.length; i++)
-			{
-			      if(inputs[i].type == 'radio')
-			      {
-			        inputs[i].disabled = true;
-			      }
+	    	if(!disable_btn)
+	    	{
+		    	$('#modal1').modal({opacity: 1,});
+		        $('#modal1').modal('open');
+		    
 			}
-			for(var i=0;i<mcq_options.length;i++)
+			else
 			{
-				document.getElementById(String(mcq_options[i].question_id)+String(mcq_options[i].chosen_option)).checked = true;
+				$('input:radio').attr('disabled',true)
+				for(var i=0;i<mcq_options.length;i++)
+					$('#ques'+mcq_options[i].question_id+'_opt'+mcq_options[i].chosen_option).prop('checked',true);
 			}
-		}
 
+       		 
 
+        	function SubmitFunction(){
+       			$('form').submit();       
+        	}
 
+        			    
+		
 
-        /*function myFunction(){
-        	if(mcq_options||deadline<today)
-        		{
-        	    	$("#submitbtn").attr("disabled", true);
-        	    	$("#submitbtn").attr("class",'waves-effect darken-0 btn');
-        	    }
-        }*/
+        	$('#startbtn').on('click',countDown(duration,$('#display')));
 
+			function countDown(duration, display) {
+				$.ajax({
+				           type: "GET",
+				           url:'/tasks/1/emittrats',
+				           cache:false,
+				           processData: false,
+		                   headers: {
+		    					'X-CSRF-TOKEN': $('input[name="_token"]').attr('value') },
+				           success: function(data)
+				           {
+				           		console.log('starting test');
+				           },
+				           error: function (xhr, status, error) {
+				           	alert(xhr.responseText);
+				           }   
+				         });
 
-
-		function CountDown(duration, display) {
-            if (!isNaN(duration)) {
+				if (!isNaN(duration)) {
                 var timer = duration, minutes, seconds;
                 
                 var interVal=  setInterval(function () {
@@ -160,19 +159,28 @@
                         timer = duration;                        
                         SubmitFunction();
                         $('#display').empty();
-                        clearInterval(interVal)
+                        clearInterval(interVal);
                     }
                     },1000);
-            }
-        }
+            	}
+
+        	}
+
+		});
+
+        /*function myFunction(){
+        	if(mcq_options||deadline<today)
+        		{
+        	    	$("#submitbtn").attr("disabled", true);
+        	    	$("#submitbtn").attr("class",'waves-effect darken-0 btn');
+        	    }
+        }*/
 
 
-
-        function SubmitFunction(){
-       	$('form').submit();       
-        }
- 
+ 		
 	</script>
 	@endsection
 	
 @stop
+
+

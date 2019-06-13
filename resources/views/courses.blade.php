@@ -27,6 +27,11 @@
 @stop
 @section('content')
 <div class="container">
+    @if (session('error'))  
+            <div class="card-panel red darken-4">{{ session('error') }}</div>
+    @endif
+
+    
 
 	<div class="row " style="margin-top: 20px;">
     <div class="col s12 m8 offset-m2 ">
