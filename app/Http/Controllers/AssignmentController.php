@@ -31,28 +31,28 @@ class AssignmentController extends Controller
         switch ($type) {
             case 1:
                 request()->validate([
-                    'assignment'=>['required','image','mimes:jpeg,png,jpg','max:2048']
+                    'assignment'=>['required','mimes:zip','max:20000']
                 ]);
                 $sub_type=1;
                 //return $type;
                 break;
             case 2:
                 request()->validate([
-                    'assignment'=>['required','mimes:mp4,mov,ogg','max:20000']
+                    'assignment'=>['required','url']
                 ]);
                 $sub_type=2;
                 //return $type;
                 break;
             case 3:
                 request()->validate([
-                    'assignment'=>['required','mimes:txt,pdf,doc,docx','max:10000']
+                    'assignment'=>['required','image','mimes:png','max:2048']
                 ]);
                 $sub_type=3;
                 //return $type;
                 break;
             case 4:
                 request()->validate([
-                    'assignment'=>['required','mimes:zip','max:20000']
+                    'assignment'=>['required','mimes:pdf','max:10000']
                 ]);
                 $sub_type=4;
                 //return $type;
@@ -61,7 +61,8 @@ class AssignmentController extends Controller
 
         
 
-        $team_member_detail=team_member_detail::where('login_id',auth()->id())->first();
+        $team_member_detail=team_member_detail::where('login_id',auth()->user()->id)->first();
+        //return $team_member_detail;
         $team_course_map=team_course_map::where('team_id',$team_member_detail->team_id)->firstorFail();
         $task_schedule=task_schedule::where('task_id',$id)->where('c_id',$team_course_map->c_id)->firstorFail();
         
@@ -120,6 +121,8 @@ class AssignmentController extends Controller
     	return redirect('/tasks/'.$id.'#assign')->withMessage('Your response is recorded');
     }
 
+
+
     public function assign($id,$sub_type,Request $request)
     {
         
@@ -127,37 +130,68 @@ class AssignmentController extends Controller
         $current = Carbon::now();
         $task_status=task::firstornew(['team_id'=>$team_member_detail->team_id,'task_id'=>$id]);
 
-        if($request->hasFile('assignment'))
+        if($sub_type!=2)
         {
-            $file=$request->file('assignment');
-            $filename=$file->getClientOriginalName();
-            $file->storeAs('public/task'.$id.'/team'.$team_member_detail->team_id,$filename);
-            $filepath=$file->getPathName();
-            $fileext=$file->getClientOriginalExtension();
-        }
-        //get the file details
-        if($task_status->assign_id)
-        {
-            $assignment=assignment::where('id',$task_status->assign_id)->first();
-            $assignment->update([
-            'folder_name'=>$filename,
-            'folder_ext'=>$fileext,
-            'folder_path'=>$filepath,
-            'upload_date'=>$current,
-            'upload_num'=>$assignment->upload_num+=1,
-            'sub_type'=>$sub_type
-            ]);            
+            if($request->hasFile('assignment'))
+            {
+                $file=$request->file('assignment');
+                $filename=$file->getClientOriginalName();
+                $file->storeAs('public/task'.$id.'/team'.$team_member_detail->team_id,$filename);
+                $filepath=$file->getPathName();
+                $fileext=$file->getClientOriginalExtension();
+            }
+            //get the file details
+            if($task_status->assign_id)
+            {
+                $assignment=assignment::where('id',$task_status->assign_id)->first();
+                $assignment->update([
+                'folder_name'=>$filename,
+                'folder_ext'=>$fileext,
+                'folder_path'=>$filepath,
+                'upload_date'=>$current,
+                'upload_num'=>$assignment->upload_num+=1,
+                'sub_type'=>$sub_type
+                ]);            
+            }
+            else
+            {
+                $assignment=assignment::create([
+                'folder_name'=>$filename,
+                'folder_ext'=>$fileext,
+                'folder_path'=>$filepath,
+                'upload_date'=>$current,
+                'upload_num'=>1,
+                'sub_type'=>$sub_type
+                ]);
+            }
         }
         else
         {
-            $assignment=assignment::create([
-            'folder_name'=>$filename,
-            'folder_ext'=>$fileext,
-            'folder_path'=>$filepath,
-            'upload_date'=>$current,
-            'upload_num'=>1,
-            'sub_type'=>$sub_type
-            ]);
+            if($task_status->assign_id)
+            {
+                $assignment=assignment::where('id',$task_status->assign_id)->first();
+                $assignment->update([
+                'folder_name'=>NULL,
+                'folder_ext'=>NULL,
+                'folder_path'=>NULL,
+                'upload_date'=>$current,
+                'upload_num'=>$assignment->upload_num+=1,
+                'video_link'=>request('assignment'),
+                'sub_type'=>$sub_type
+                ]);            
+            }
+            else
+            {
+                $assignment=assignment::create([
+                'folder_name'=>NULL,
+                'folder_ext'=>NULL,
+                'folder_path'=>NULL,
+                'upload_date'=>$current,
+                'upload_num'=>1,
+                'video_link'=>request('assignment'),
+                'sub_type'=>$sub_type
+                ]);
+            }
         }
 
         return $assignment;

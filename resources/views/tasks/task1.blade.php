@@ -4,17 +4,14 @@
     .tabs .tab a{
             color:green;
         } /*Black color to the text*/
-
         .tabs .tab a:hover {
             background-color:#e8f5e6;;
             color:#09ab3d;
         } /*Text color on hover*/
-
         .tabs .tab a.active {
             background-color:#e8f5e6 !important;
             color:#09ab3d;
         } /*Background and text color when a tab is active*/
-
         .tabs .indicator {
             background-color:#2bb986;
         } /*Color of underline*/
@@ -110,13 +107,13 @@
 
                            <div class="input-field col s12 m12 " id="file_input" style="display: none;">
                                 <label for="assignment"></label>
-                                <input type="file" placeholder="Upload your assignment" name="assignment" required>
+                                <input type="file" placeholder="Upload your assignment" name="assignment">
                            </div>
 
                            <div class="input-field col s12 m12 " id="link_input" style="display: none;">
                                 <label for="assignment"></label>
-                                <input type="text" placeholder="Insert link here" name="assignment" required>
-                           </div>               
+                                <input type="text" placeholder="Insert link here" name="assignment">
+                           </div>            
                         
                            <div class="input-field col s12 m12">
                                 <button type="submit" class="waves-effect waves-light btn modal-trigger" id="submitbtn" {{ ($time_up)?"disabled":"" }}>Submit
@@ -154,9 +151,8 @@
         $(document).ready(function(){
             $('.tabs').tabs();
             $('select').formSelect();
-
-
-
+            $('#file_input').show();
+            $('#link_input').hide();
             $('#submission_type').on('change',function(){
                 let subm_type=$('#submission_type').val();
                 if(subm_type == 2){
