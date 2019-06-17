@@ -42,14 +42,25 @@ Route::get('/courses', function(){
 
 Route::get('/tasks/{task}','CourseController@getTask')->name('taskpage');
 
-
-
 Route::get('/tasks/{task}/mcq', 'McqController@getMcqDetails');
 Route::post('/tasks/{task}/savemcq', 'McqController@mcqstore');
 Route::get('/tasks/{task}/emittrats','McqController@recordtime');
 
 Route::post('/tasks/{task}/assign', 'AssignmentController@assignstore');
 
+
+//discussion forum routes
+Route::resource('/thread','ThreadController');
+
+Route::resource('comment','CommentController',['only'=>['destroy','update']]);
+
+Route::post('comment/create/{thread}', 'CommentController@addThreadComment')->name('threadcomment.store');
+
+Route::post('reply/create/{comment}', 'CommentController@addReplyComment')->name('replycomment.store');
+
+Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name('markAsSolution');
+
+Route::post('comment/like','LikeController@toggleLike')->name('toggleLike');
 
 
 

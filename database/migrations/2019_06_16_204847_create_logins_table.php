@@ -15,11 +15,11 @@ class CreateLoginsTable extends Migration
     {
         Schema::create('logins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('username')->unique();;
+            $table->string('username')->unique();
             $table->string('password');
             $table->integer('role');
             $table->integer('active');
-            $table->timestamp('last_login')
+            $table->timestamp('last_login');
             $table->integer('login_count');
             $table->integer('forgot_count');
             $table->rememberToken();
