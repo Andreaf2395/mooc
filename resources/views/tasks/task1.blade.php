@@ -94,12 +94,12 @@
                         <br>
                         @endif
 
-                        <form method="POST" action="/tasks/{{$task->task_id}}/assign" enctype="multipart/form-data">
+                        <form method="POST" action="/tasks/1/assign" enctype="multipart/form-data">
                             @csrf
                           
-                            
                             <div class="input-field col s12 m5">
                                 <select name="submission_type" id="submission_type">
+                                    <option value=''></option>
                                     @foreach($submission_types as $submission_type)
                                     <option value='{{ $submission_type->id }}'>{{ $submission_type->type }}</option>
                                     @endforeach
@@ -107,15 +107,14 @@
                                 <label for="submission_type">Select submission types</label>
                             </div>
 
-
                            <div class="input-field col s12 m12 " id="file_input" style="display: none;">
                                 <label for="assignment"></label>
-                                <input type="file" placeholder="Upload your assignment" name="assignment" required>
+                                <input type="file" placeholder="Upload your assignment" name="assignment1" required>
                            </div>
 
                            <div class="input-field col s12 m12 " id="link_input" style="display: none;">
                                 <label for="assignment"></label>
-                                <input type="text" placeholder="Insert link here" name="assignment" required>
+                                <input type="text" placeholder="Insert link here" name="assignment2" required>
                            </div>               
                         
                            <div class="input-field col s12 m12">
@@ -155,6 +154,9 @@
             $('.tabs').tabs();
             $('select').formSelect();
 
+            $('submitbtn').on('click',function(){
+                alert('dfsdf');
+            });
 
 
             $('#submission_type').on('change',function(){

@@ -129,40 +129,43 @@
         	$('#startbtn').on('click',countDown(duration,$('#display')));
 
 			function countDown(duration, display) {
-				$.ajax({
-				           type: "GET",
-				           url:'/tasks/1/emittrats',
-				           cache:false,
-				           processData: false,
-		                   headers: {
-		    					'X-CSRF-TOKEN': $('input[name="_token"]').attr('value') },
-				           success: function(data)
-				           {
-				           		console.log('starting test');
-				           },
-				           error: function (xhr, status, error) {
-				           	alert(xhr.responseText);
-				           }   
-				         });
+				if(!disable_btn){
+					$.ajax({
+					           type: "GET",
+					           url:'/tasks/1/emittrats',
+					           cache:false,
+					           processData: false,
+			                   headers: {
+			    					'X-CSRF-TOKEN': $('input[name="_token"]').attr('value') },
+					           success: function(data)
+					           {
+					           		console.log('starting test');
+					           },
+					           error: function (xhr, status, error) {
+					           	alert(xhr.responseText);
+					           }   
+					         });
 
-				if (!isNaN(duration)) {
-                var timer = duration, minutes, seconds;
-                
-                var interVal=  setInterval(function () {
-                    minutes = parseInt(timer / 60, 10);
-                    seconds = parseInt(timer % 60, 10);
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-                    $('#time').val(timer);
-                    $(display).html("<b>" + minutes + "m : " + seconds + "s" + "</b>");
-                    if (--timer < 0) {
-                        timer = duration;                        
-                        SubmitFunction();
-                        $('#display').empty();
-                        clearInterval(interVal);
-                    }
-                    },1000);
-            	}
+					if (!isNaN(duration)) {
+	                var timer = duration, minutes, seconds;
+	                
+	                var interVal=  setInterval(function () {
+	                    minutes = parseInt(timer / 60, 10);
+	                    seconds = parseInt(timer % 60, 10);
+	                    minutes = minutes < 10 ? "0" + minutes : minutes;
+	                    seconds = seconds < 10 ? "0" + seconds : seconds;
+	                    $('#time').val(timer);
+	                    $(display).html("<b>" + minutes + "m : " + seconds + "s" + "</b>");
+	                    if (--timer < 0) {
+	                        timer = duration;                        
+	                        SubmitFunction();
+	                        $('#display').empty();
+	                        clearInterval(interVal);
+	                    }
+	                    },1000);
+            		}
+				}
+
 
         	}
 

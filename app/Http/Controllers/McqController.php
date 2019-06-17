@@ -64,12 +64,12 @@ class McqController extends Controller
         if($team_mcq_score=TeamMcqScore::where(['team_id'=>$team_id,'task_id'=>$id])->first())
         {
             $task_status=task::where(['team_id'=>$team_id,'task_id'=>$id])->value('status');
-            if($task_status == null)
+            if($task_status == null || $task_status == 2)
             {
                 Log::info('start_time '.$team_mcq_score->start_time);
                 $test_end_time=Carbon::createFromFormat('Y-m-d H:i:s', $team_mcq_score->start_time)->addMinutes(5);
                 if($current->greaterThan($test_end_time) ){
-                    $duration =400;
+                    $duration =0;
                     $disable_btn=true;
                 }
                 else{
@@ -79,7 +79,7 @@ class McqController extends Controller
             }
             elseif($task_status == 1 || $task_status == 3)
             {
-                $duration =400;
+                $duration =0;
                 $disable_btn=true;
                 $mcq_options=DB::table('team_mcq_dtls')->join('mcq_masters',function($join)use($team_member_detail)
                 {
