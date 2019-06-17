@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>forum</title>
 
-
+<!-- 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -16,11 +16,28 @@
 	<link rel="stylesheet" href="{{asset('css/main.css')}}">
 	<link rel="stylesheet" href="{{asset('css/app.css')}}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.min.css"> 
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+
+
+
+
+
+	<!--icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
         <style type="text/css">
             body {
                 display: flex;
@@ -36,16 +53,6 @@
                 height: 65%;
             }
 
-
-            /*.divider {
-                margin: 0.5em 0 0.5em 0;
-                border: 0;
-                height: 1px;
-                width: 100%;
-                display: block;
-                background-color: blue;
-                background-image: linear-gradient(to right,pink,blue,pink);
-            }*/
 
         </style>
 
@@ -85,12 +92,12 @@
 	@include('layouts.partials.success')
 	
 	<div class="row">
-		
-		@section('category')
-			@include('layouts.partials.categories')
-		@show
-
-		<div class="col-md-9">
+		<div class="col m3 s12">
+			@section('category')
+				@include('layouts.partials.categories')
+			@show
+		</div>
+		<div class="col m9">
 			<div class="row content-heading"><h1>@yield('heading')</h1></div>
 			<div class="content-wrap">
 				@yield('content')
@@ -103,14 +110,14 @@
 @include('includes.footer')
 
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-{{--<!-- Latest compiled and minified JS -->--}}
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
-
+ -->
 @yield('js')
 </body>
 </html>

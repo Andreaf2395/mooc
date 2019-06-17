@@ -8,26 +8,26 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form class="form-vertical" action="{{route('thread.store')}}" method="post" role="form"
+            <form  action="{{route('thread.store')}}" method="post" 
                   id="create-thread-form">
                 {{csrf_field()}}
-                <div class="form-group">
-                    <label for="subject">Subject</label>
+                <div class="input-field col s12">
                     <input type="text" class="form-control" name="subject" id="" placeholder="Input..."
                            value="{{old('subject')}}">
+                    <label for="subject">Subject</label>       
                 </div>
 
-                <div class="form-group">
-                    <label for="type">Type</label>
+                <div class="input-field col s12">
                     <input type="text" class="form-control" name="type" id="" placeholder="Input..." value="{{old('type')}}">
+                    <label for="type">Type</label>
                 </div>
 
-                <div class="form-group">
+                <div class="input-field col s12">           
+                    <textarea class="materialize-textarea" name="thread" id="" placeholder="Input...">{{old('thread')}}</textarea>
                     <label for="thread">Thread</label>
-                    <textarea class="form-control" name="thread" id="" placeholder="Input...">{{old('thread')}}</textarea>
                 </div>
 
-                <div class="form-group">
+                <div class="input-field col s12">
                     {!!NoCaptcha::renderJs()!!}
                     {!!NoCaptcha::display()!!}
                 </div>
