@@ -1,76 +1,96 @@
-<h4>{{$comment->body}}</h4>
 
-@if(!empty($thread->solution))
-    @if($thread->solution == $comment->id)
-        <button class="btn btn-success pull-right">Solution</button>
+
+<br><br>
+<div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$thread->created_at->diffForHumans()}}</div>
+<div style="float:right;">
+    @if(!empty($thread->solution))
+        @if($thread->solution == $comment->id)
+            <div class="chip teal">Solution</div>
     @endif
-@else
-    @if(auth()->check())
-        @if(auth()->user()->id == $thread->login_id)
-            <form action="{{route('markAsSolution')}}" method="post">
-                {{csrf_field()}}
-                <input type="hidden" name="threadId" value="{{$thread->id}}">
-                <input type="hidden" name="solutionId" value="{{$comment->id}}">
-                <input type="submit" class="btn btn-success pull-right" id="{{$comment->id}}" value="Mark As Solution">
-            </form>
+    @else
+        @if(auth()->check())
+            @if(auth()->user()->id == $thread->login_id)
+                <form action="{{route('markAsSolution')}}" method="post">
+                    {{csrf_field()}}
+                    <input type="hidden" name="threadId" value="{{$thread->id}}">
+                    <input type="hidden" name="solutionId" value="{{$comment->id}}">
+                    <input type="submit" class="btn btn-small" id="{{$comment->id}}" value="Mark As Solution">
+                </form>
+            @endif
         @endif
     @endif
-@endif
+</div>
 
-<lead>by {{$comment->user->username}}</lead>
+<div class="row" style="margin-bottom: 0;">
+    <div class="col s1 m1" style="padding-top:20px;">
+        <div class="chip" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</div>
+    </div>
+    <div class="col s11 m11">
+        <blockquote>{{$comment->body}}</blockquote>
+    </div>
 
-<div class="actions">
+</div>
+
+
+
+
+
+<div>
     
-    <button class="btn btn-default btn-xs blue-grey lighten-4 black-text" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</button>
-    <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><span class="glyphicon glyphicon-thumbs-up"></span></span>
+    <div class="btn-floating btn-small waves-effect waves-light {{$comment->isLiked()?'green':'grey lighten-1'}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></div>
+
     
     @if(auth()->user()->id == $comment->user_id)
     <!--<a href="{{route('thread.edit',$thread->id)}}" class="btn btn-info btn-xs">Edit</a>-->
-    <a class="btn btn-primary btn-xs" data-toggle="modal" href="#com{{$comment->id}}">edit</a>
-    <div class="modal fade bd-example-modal-lg" id="com{{$comment->id}}">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                    </button>
-                    <h4 class="modal-title"></h4>
+    <a class="btn-floating btn-small waves-effect waves-light blue modal-trigger"  href="#com{{$comment->id}}"><i class="material-icons small">edit</i></a>
+    <div class="modal " id="com{{$comment->id}}">
+        <div class="modal-content">
+            <h4>EDIT the comment</h4>
+            <form action="{{route('comment.update',$comment->id)}}" method="post" >
+                {{csrf_field()}}
+                {{method_field('put')}}
+                <div class="input-field col s6">
+                    <textarea type="text" class="materialize-textarea" name="body" id="" >{{$comment->body}}</textarea>        
                 </div>
-                <div class="modal-body">
-                    <div class="comment-form">
 
-                        <form action="{{route('comment.update',$comment->id)}}" method="post" role="form">
-                            {{csrf_field()}}
-                            {{method_field('put')}}
-                            <legend>Edit comment</legend>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="body" id=""
-                                       placeholder="Input..." value="{{$comment->body}}">
-                            </div>
-
-
-                            <button type="submit" class="btn btn-primary">Comment</button>
-                        </form>
-
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-small ">Save</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+            </form>   
+        </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 
-
     {{--//delete form--}}
-    <form action="{{route('comment.destroy',$comment->id)}}" method="POST" class="inline-it">
+    <form action="{{route('comment.destroy',$comment->id)}}" method="POST" class="action-element">
         {{csrf_field()}}
         {{method_field('DELETE')}}
-        <input class="btn btn-xs btn-danger" type="submit" value="Delete">
+        <button class="btn-floating btn-small waves-effect waves-light red" type="submit" value="Delete"><i class="material-icons small">delete</i></button>
     </form>
     @endif
+
+    <button  class="btn btn-small" id="reply-btn-{{$comment->id}}" onclick="toggleReply('{{$comment->id}}')"> reply</button>
+                <!--reply to comment-->
+        <div id="reply-form-{{$comment->id}}" class="reply-form col m10 offset-m2" style="display: none;">
+            
+            <form action="{{route('replycomment.store',$comment->id)}}" method="post" >
+                {{csrf_field()}}
+                <div class="input-field col s12 m12">
+                    <textarea class="materialize-textarea" name="body" id=""></textarea>
+                </div>
+                <button type="submit" class="btn ">Reply</button>
+            </form>
+            
+        </div>
 </div>
 
 
 @section('js')
     <script>
+           $(document).ready(function(){
+            $('.modal').modal();
+
+        });
+       
 
         function likeIt(commentId,elem){
             var csrfToken='{{csrf_token()}}';
@@ -90,9 +110,9 @@
         }
 
 
-        function toggleReply(commentId){
-            $('.reply-form-'+commentId).toggleClass('hidden');
-        }
+            function toggleReply(commentid){
+                 $('#reply-form-'+commentid).toggle();
+            }
 
     </script>
 @endsection

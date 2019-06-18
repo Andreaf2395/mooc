@@ -52,17 +52,11 @@
                 top: 65px;
                 height: 65%;
             }
-
-
         </style>
 
     <style>
-    body {
-    	font-size: 20px;
-	}
-	.btn{
-		font-size: 15px;
-	}
+  
+	
 	.content-heading{
 		font-size: 30px;
 	}
@@ -76,6 +70,7 @@
 	    background:green;
 	}
 	</style>
+	@yield('style')
 </head>
 <body>
 <header>
@@ -87,9 +82,8 @@
 
 <div class="container">
 	
-	<br>
-	@include('layouts.partials.error')
-	@include('layouts.partials.success')
+<!-- 	@include('layouts.partials.error')
+	@include('layouts.partials.success') -->
 	
 	<div class="row">
 		<div class="col m3 s12">
@@ -97,14 +91,14 @@
 				@include('layouts.partials.categories')
 			@show
 		</div>
-		<div class="col m9">
+		<div class="col m9 s12">
 			<div class="row content-heading"><h1>@yield('heading')</h1></div>
 			<div class="content-wrap">
 				@yield('content')
 			</div>
 		</div>
 	</div>
-	<br>
+	
 </div>
 
 @include('includes.footer')

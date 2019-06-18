@@ -9,20 +9,22 @@
 	@endforelse-->
 
 	@forelse($threads as $thread)
-
-        <a href="{{route('thread.show',$thread->id)}}" style="text-decoration: none;">
-        	<div class="card blue-grey lighten-5">
+        <div class="row">
+            <a href="{{route('thread.show',$thread->id)}}" style="text-decoration: none;">
+        	   <div class="card blue-grey lighten-5 ">
         		<div class="card-content black-text">
-                <h3> {{$thread->subject}}</h3>
+                    <span class="card-title teal-text z-depth-">{{$thread->subject}}</span>
             
-                <p>{{str_limit($thread->thread,100) }}
-                    <br>
-                    <h6>Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</h6>
-                </p>
+                    <p>{{str_limit($thread->thread,100) }}
+                      </p>  
+                    <h6 class="grey-text" style="font-size:13px;">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</h6>
+                
             	</div>
-            </div>
-    	</a>
-
+                </div>
+    	   </a>
+    </div>
+    
+      
     @empty
         <h5>No threads</h5>
 
