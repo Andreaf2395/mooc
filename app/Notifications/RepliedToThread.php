@@ -12,14 +12,15 @@ class RepliedToThread extends Notification
 {
     use Queueable;
 
+    protected $thread;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($thread)
     {
-        //
+        $this->thread=$thread;
     }
 
     /**
@@ -42,7 +43,8 @@ class RepliedToThread extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'repliedTime'=>Carbon::now()
+            'thread'=>$this->thread,
+            'login'=>auth()->user()
         ];
     }
 

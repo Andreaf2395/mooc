@@ -65,6 +65,7 @@
 	.liked{
 	    background:green;
 	}
+	
 	</style>
 	@yield('style')
 </head>
