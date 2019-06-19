@@ -1,5 +1,7 @@
 
+
 <div class="horizontal-divider"></div>
+
 <br><br>
 <div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$thread->created_at->diffForHumans()}}</div>
 <div style="float:right;">
@@ -17,6 +19,7 @@
                     <input type="submit" class="btn btn-small" id="{{$comment->id}}" value="Mark As Solution">
                 </form>
             @endif
+
         @endif
     @endif
 </div>
@@ -37,7 +40,12 @@
 
 <div>
     
+<!-- 
+    <button class="btn btn-default btn-xs blue-grey lighten-4 black-text" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</button>
+    <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="material-icons">thumb_up</i></span>
+ -->
     <div class="btn-floating btn-small waves-effect waves-light {{$comment->isLiked()?'green':'grey lighten-1'}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></div>
+
 
     
     @if(auth()->user()->id == $comment->user_id)
@@ -64,6 +72,7 @@
     <form action="{{route('comment.destroy',$comment->id)}}" method="POST" class="action-element">
         {{csrf_field()}}
         {{method_field('DELETE')}}
+
         <button class="btn-floating btn-small waves-effect waves-light red" type="submit" value="Delete"><i class="material-icons small">delete</i></button>
     </form>
     @endif
@@ -81,6 +90,7 @@
             </form>
             
         </div>
+
 </div>
 
 

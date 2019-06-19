@@ -46,6 +46,7 @@
 
 @section('content')
 
+
 <div class="thread-box">
     <div class="thread-content">
         <div class="content-wrap ">
@@ -68,15 +69,22 @@
                     </form>
                 
             @endif
-               <span style="float:right;" class="author">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</span>    
+               <span style="float:right;" class="author">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</span>
+            @foreach($thread->tags as $tag)
+                <span class="badge green white-text">{{$tag['name']}}</span>
+            @endforeach           
         </div>
+
     </div>
 
     
 
     @foreach($thread->comments as $comment)    
+
         <div >        
+
             @include('thread.partials.comment-list')
+        
         </div>
 
         <br>
@@ -146,6 +154,16 @@
 
 @endsection
 
+
+@section('js')
+
+    <script>
+        function toggleReply(commentId){
+            $('#reply-form-'+commentId).toggleClass('hidden');
+        }
+    </script>
+
+@endsection
 
 
 

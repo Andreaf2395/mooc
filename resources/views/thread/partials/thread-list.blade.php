@@ -1,19 +1,20 @@
+@section('script')
+	<style>
+	.card{
+		font-size:20px !important;
+		}
+	</style>
+@endsection
 <div class="list-group">
-	<!--@forelse($threads as $thread)
-		<a href="{{route('thread.show',$thread->id)}}" class="list-group-item">
-			<h4 class="list-group-item-heading">{{$thread->subject}}</h4>
-			<p class="list-group-item-text">{{str_limit($thread->thread,100)}}</p>
-		</a>
-	@empty
-		<h5>No thread</h5>
-	@endforelse-->
 
 	@forelse($threads as $thread)
         <div class="row">
             <a href="{{route('thread.show',$thread->id)}}" style="text-decoration: none;">
         	   <div class="card blue-grey lighten-5 ">
         		<div class="card-content black-text">
-                    <span class="card-title teal-text z-depth-">{{$thread->subject}}</span>
+
+                    <span class="card-title teal-text z-depth-1">{{$thread->subject}}</span>
+
             
                     <p>{{str_limit($thread->thread,100) }}
                       </p>  
