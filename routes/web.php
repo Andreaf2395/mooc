@@ -62,5 +62,11 @@ Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name(
 
 Route::post('comment/like','LikeController@toggleLike')->name('toggleLike');
 
+Route::get('/markAsRead',function(){
+    auth()->user()->unreadNotifications->markAsRead();
+});
+
+Route::get('/thread/search','ThreadController@search');
+
 
 

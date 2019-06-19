@@ -13,7 +13,7 @@
         	   <div class="card blue-grey lighten-5 ">
         		<div class="card-content black-text">
 
-                    <span class="card-title teal-text z-depth-1">{{$thread->subject}}</span>
+                    <span class="card-title teal-text ">{{$thread->subject}}</span>
 
             
                     <p>{{str_limit($thread->thread,100) }}

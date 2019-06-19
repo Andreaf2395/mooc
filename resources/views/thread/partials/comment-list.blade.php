@@ -37,11 +37,9 @@
 
 <div>
     
-<!-- 
-    <button class="btn btn-default btn-xs blue-grey lighten-4 black-text" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</button>
-    <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="material-icons">thumb_up</i></span>
- -->
-    <div class="btn-floating btn-small waves-effect waves-light {{$comment->isLiked()?'green':'grey lighten-1'}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></div>
+    <!-- <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></span> -->
+
+    <span class="btn-floating btn-small waves-effect waves-light {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></span>
 
 
     

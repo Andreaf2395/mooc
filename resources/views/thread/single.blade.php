@@ -71,7 +71,7 @@
             @endif
                <span style="float:right;" class="author">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</span>
             @foreach($thread->tags as $tag)
-                <span class="badge green white-text">{{$tag['name']}}</span>
+                <span class="badge green white-text left">{{$tag['name']}}</span>
             @endforeach           
         </div>
 
