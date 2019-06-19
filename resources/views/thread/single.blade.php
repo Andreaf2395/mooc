@@ -4,10 +4,11 @@
 @section('content')
 
 	
-    <div class="content-wrap well">
+    <div class="card-panel blue-grey lighten-5">
         <h4>{{$thread->subject}}</h4>
         <hr>
 
+        
         <div class="thread-details">
             {!!\Michelf\Markdown::defaultTransform($thread->thread)!!}
         </div>
@@ -26,13 +27,18 @@
                 </form>
             </div>
         @endif
+        @foreach($thread->tags as $tag)
+        <span class="badge green white-text">{{$tag['name']}}</span>
+        @endforeach
     </div>
 
     <hr>
 
     @foreach($thread->comments as $comment)    
         <div class="comment-list well well-lg">        
+            
             @include('thread.partials.comment-list')
+        
         </div>
         <hr>
         <!--reply to comment-->
@@ -135,4 +141,12 @@
 @endsection
 
 
+@section('js')
 
+    <script>
+        function toggleReply(commentId){
+            $('.reply-form-'+commentId).toggleClass('hidden');
+        }
+    </script>
+
+@endsection

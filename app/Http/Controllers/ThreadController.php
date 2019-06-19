@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\thread;
+use App\Model\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -18,9 +19,15 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $threads= thread::paginate(15);
+        if($request->has('tags')){
+            $tag=Tag::find($request->tags);
+            $threads=$tag->threads;
+        }
+        else{
+            $threads= thread::paginate(15);
+        }
         return view('thread.index',compact('threads'));
     }
 
@@ -44,13 +51,14 @@ class ThreadController extends Controller
     {
          $this->validate($request, [
             'subject' => 'required|min:5',
-            'type'    => 'required',
+            'tags'    => 'required',
             'thread'  => 'required|min:10',
             'g-recaptcha-response' => 'required|captcha'
         ]);
         //store
         //return $request->all();
-        auth()->user()->threads()->create($request->all());
+        $thread = auth()->user()->threads()->create($request->all());
+        $thread->tags()->attach($request->tags);
         
         //redirect
         return back()->withMessage('Thread Created!');
@@ -126,5 +134,14 @@ class ThreadController extends Controller
         if ($thread->save()) {
             return back()->withMessage('Marked as solution');
         }
+    }
+
+
+    public function search(Request $request)
+    {
+        dd('hi');
+        /*$query=request('query');
+        $threads = thread::search($query)->get();
+        return view('thread.index', compact('threads'));*/
     }
 }

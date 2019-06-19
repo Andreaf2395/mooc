@@ -1,11 +1,24 @@
 <div class="col-md-3">
-	<h4>Category</h4>
+	
+	<form method="GET" action="/thread/search">
+        
+        <input type="search" name="query" placeholder="Search">
+        
+    </form>
 
+	<h4>Tags</h4>
 
 	<div class="collection ">
-    	<a href="{{route('thread.index')}}" class="collection-item"><span class="new badge">1</span>All thread</a>
-	    <a href="#!" class="collection-item">Laravel</a>
-	    <a href="#!" class="collection-item"><span class="badge">14</span>Javascript</a>
+		<a href="{{route('thread.index')}}" class="collection-item"><span class="badge green white-text">{{count(App\Model\thread::all())}}</span>
+    		All Threads
+    	</a>
+		@foreach($tags as $tag)
+    	<a href="{{route('thread.index',['tags'=>$tag->id])}}" class="collection-item"><span class="badge green white-text">{{count($tag->threads)}}</span>
+    		{{$tag->name}}
+    	</a>
+    	@endforeach
+	    <!--<a href="#!" class="collection-item"><span class="new badge">2</span>Laravel</a>
+	    <a href="#!" class="collection-item"><span class="new badge">2</span>Javascript</a>-->
 	</div>
 	
 

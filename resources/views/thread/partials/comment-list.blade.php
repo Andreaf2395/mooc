@@ -2,7 +2,7 @@
 
 @if(!empty($thread->solution))
     @if($thread->solution == $comment->id)
-        <button class="btn btn-success pull-right">Solution</button>
+        <button class="btn btn-success right">Solution</button>
     @endif
 @else
     @if(auth()->check())
@@ -11,7 +11,7 @@
                 {{csrf_field()}}
                 <input type="hidden" name="threadId" value="{{$thread->id}}">
                 <input type="hidden" name="solutionId" value="{{$comment->id}}">
-                <input type="submit" class="btn btn-success pull-right" id="{{$comment->id}}" value="Mark As Solution">
+                <input type="submit" class="btn btn-success right" id="{{$comment->id}}" value="Mark As Solution">
             </form>
         @endif
     @endif
@@ -22,7 +22,7 @@
 <div class="actions">
     
     <button class="btn btn-default btn-xs blue-grey lighten-4 black-text" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</button>
-    <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><span class="glyphicon glyphicon-thumbs-up"></span></span>
+    <span class="btn btn-info btn-xs {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="material-icons">favorite</i></span>
     
     @if(auth()->user()->id == $comment->user_id)
     <!--<a href="{{route('thread.edit',$thread->id)}}" class="btn btn-info btn-xs">Edit</a>-->
@@ -63,9 +63,10 @@
     <form action="{{route('comment.destroy',$comment->id)}}" method="POST" class="inline-it">
         {{csrf_field()}}
         {{method_field('DELETE')}}
-        <input class="btn btn-xs btn-danger" type="submit" value="Delete">
+        <input class="btn btn-xs" type="submit" value="Delete">
     </form>
     @endif
+    
 </div>
 
 
@@ -89,10 +90,6 @@
             });
         }
 
-
-        function toggleReply(commentId){
-            $('.reply-form-'+commentId).toggleClass('hidden');
-        }
 
     </script>
 @endsection
