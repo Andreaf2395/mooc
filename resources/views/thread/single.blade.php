@@ -91,6 +91,7 @@
                 <div >
                     @if(auth()->user()->id == $reply->user_id)
                     <a class="btn-floating btn-small waves-effect waves-light blue modal-trigger" href="#reply{{$reply->id}}"><i class="material-icons small">edit</i></a>
+                   
                     <div class="modal" id="reply{{$reply->id}}">
                         <div class="modal-content">
                             <h4>Edit reply</h4>

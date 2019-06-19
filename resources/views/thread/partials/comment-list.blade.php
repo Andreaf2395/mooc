@@ -1,5 +1,5 @@
 
-
+<div class="horizontal-divider"></div>
 <br><br>
 <div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$thread->created_at->diffForHumans()}}</div>
 <div style="float:right;">
@@ -26,7 +26,7 @@
         <div class="chip" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</div>
     </div>
     <div class="col s11 m11">
-        <blockquote>{{$comment->body}}</blockquote>
+        <blockquote style="word-wrap: break-word;">{{$comment->body}}</blockquote>
     </div>
 
 </div>
