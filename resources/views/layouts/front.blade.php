@@ -52,11 +52,10 @@
                 top: 65px;
                 height: 65%;
             }
-
-
         </style>
 
     <style>
+
 	.modal 
 	{ 
 		width: 30% !important ;
@@ -67,6 +66,7 @@
 	    background:green;
 	}
 	</style>
+	@yield('style')
 </head>
 <body>
 <header>
@@ -78,9 +78,8 @@
 
 <div class="container">
 	
-	<br>
-	@include('layouts.partials.error')
-	@include('layouts.partials.success')
+<!-- 	@include('layouts.partials.error')
+	@include('layouts.partials.success') -->
 	
 	<div class="row">
 		<div class="col m3 s12">
@@ -95,7 +94,7 @@
 			</div>
 		</div>
 	</div>
-	<br>
+	
 </div>
 
 @include('includes.footer')

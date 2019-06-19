@@ -3,7 +3,8 @@
 @section('heading',"create thread")
 
 @section('content')
-
+     @include('layouts.partials.error')
+    @include('layouts.partials.success')
     
 
     <div class="row">
@@ -36,7 +37,7 @@
                     {!!NoCaptcha::display()!!}
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="waves-effect waves-light btn">Submit</button>
             </form>
         </div>
     </div>
