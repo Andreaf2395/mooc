@@ -42,10 +42,13 @@ Route::get('/courses', function(){
 
 Route::get('/tasks/{task}','CourseController@getTask')->name('taskpage');
 
+
+//MCQ routes
 Route::get('/tasks/{task}/mcq', 'McqController@getMcqDetails');
 Route::post('/tasks/{task}/savemcq', 'McqController@mcqstore');
 Route::get('/tasks/{task}/emittrats','McqController@recordtime');
 
+//Assignment route
 Route::post('/tasks/{task}/assign', 'AssignmentController@assignstore');
 
 
@@ -67,6 +70,12 @@ Route::get('/markAsRead',function(){
 });
 
 Route::get('/thread/search','ThreadController@search');
+//end of discussion forum routes
 
 
+//Chart route
+Route::get('/chart/{task}', 'ChartController@showchart');
 
+
+//Email route
+Route::get('/email', 'EmailController@sendmail');
