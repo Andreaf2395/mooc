@@ -125,23 +125,12 @@ class ThreadController extends Controller
     }
 
 
-    public function markAsSolution()
-    {
-        $solutionId = Input::get('solutionId');
-        $threadId = Input::get('threadId');
-        $thread = thread::find($threadId);
-        $thread->solution = $solutionId;
-        if ($thread->save()) {
-            return back()->withMessage('Marked as solution');
-        }
-    }
-
-
     public function search(Request $request)
     {
-        dd('hi');
-        /*$query=request('query');
+        //dd('hi');
+        $query=request('query');
+        dd($query);
         $threads = thread::search($query)->get();
-        return view('thread.index', compact('threads'));*/
+        return view('thread.index', compact('threads'));
     }
 }

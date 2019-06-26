@@ -1,17 +1,16 @@
-
 <br><br>
 <div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$thread->created_at->diffForHumans()}}</div>
 <div style="float:right;">
-    @if(!empty($thread->solution))
-        @if($thread->solution == $comment->id)
-            <div class="chip teal">Solution</div>
-    @endif
+    
+    @if($comment->solution)
+        <div class="chip teal">Solution</div>
+    
     @else
         @if(auth()->check())
             @if(auth()->user()->id == $thread->login_id)
                 <form action="{{route('markAsSolution')}}" method="post">
                     {{csrf_field()}}
-                    <input type="hidden" name="threadId" value="{{$thread->id}}">
+                    
                     <input type="hidden" name="solutionId" value="{{$comment->id}}">
                     <input type="submit" class="btn btn-small" id="{{$comment->id}}" value="Mark As Solution">
                 </form>

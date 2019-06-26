@@ -61,7 +61,7 @@ Route::post('comment/create/{thread}', 'CommentController@addThreadComment')->na
 
 Route::post('reply/create/{comment}', 'CommentController@addReplyComment')->name('replycomment.store');
 
-Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name('markAsSolution');
+Route::post('/thread/mark-as-solution','CommentController@markAsSolution')->name('markAsSolution');
 
 Route::post('comment/like','LikeController@toggleLike')->name('toggleLike');
 
@@ -77,5 +77,5 @@ Route::get('/thread/search','ThreadController@search');
 Route::get('/chart/{task}', 'ChartController@showchart');
 
 
-//Email route
-Route::get('/email', 'EmailController@sendmail');
+//Team status
+Route::get('/status', 'StatusController@showstatus');

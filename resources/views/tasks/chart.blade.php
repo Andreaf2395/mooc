@@ -3,7 +3,7 @@
 
 @section('content')
 	
-	<h3 id="hi"><center>Progress</center></h3>
+	<h3><center>Progress</center></h3>
 	<br>
 	<div class="container" style="height: 300px; width: 300px;">
 		<canvas id="myChart1" style="height: 100px; width: 100px;"></canvas>
