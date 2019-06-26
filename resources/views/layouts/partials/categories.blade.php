@@ -1,8 +1,8 @@
 <div class="col-md-3">
 	
-	<form method="GET" action="/thread/search">
+	<form method="GET" action="/search">
         
-        <input type="search" name="query" placeholder="Search">
+        <input type="text" name="query" placeholder="Search">
         
     </form>
 

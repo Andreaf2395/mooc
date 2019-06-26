@@ -28,5 +28,4 @@ class StatusController extends Controller
 		return view('tasks.status',compact('task_statuses','scores'));
 	}
 
-
 }

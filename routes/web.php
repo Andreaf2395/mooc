@@ -69,7 +69,7 @@ Route::get('/markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
 });
 
-Route::get('/thread/search','ThreadController@search');
+Route::get('/search', 'ThreadController@searchthread');
 //end of discussion forum routes
 
 
@@ -79,3 +79,6 @@ Route::get('/chart/{task}', 'ChartController@showchart');
 
 //Team status
 Route::get('/status', 'StatusController@showstatus');
+
+
+

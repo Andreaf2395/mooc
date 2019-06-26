@@ -14,7 +14,7 @@ class Thread extends Model
 
     protected $searchable = [
         'columns' => [
-            'comments.body'=>10,
+            'comments.body'=>5,
             'threads.subject' => 10,
             'threads.thread' => 8,
         ],

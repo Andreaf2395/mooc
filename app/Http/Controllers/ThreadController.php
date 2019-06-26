@@ -125,12 +125,11 @@ class ThreadController extends Controller
     }
 
 
-    public function search(Request $request)
+    public function searchthread(Request $request)
     {
-        //dd('hi');
+        //dd(request());
         $query=request('query');
-        dd($query);
-        $threads = thread::search($query)->get();
+        $threads = thread::search($query)->paginate(15);
         return view('thread.index', compact('threads'));
     }
 }
