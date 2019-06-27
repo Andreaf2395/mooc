@@ -29,7 +29,7 @@ class ThreadController extends Controller
             $threads=$tag->threads;
         }
         else{
-            $threads= thread::paginate(15);
+            $threads= thread::paginate(10);
         }
         return view('thread.index',compact('threads'));
     }

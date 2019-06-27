@@ -32,3 +32,5 @@
 
     @endforelse
 </div>
+Thread link here
+{{ $threads->links() }}

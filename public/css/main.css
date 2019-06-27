@@ -114,3 +114,20 @@ blockquote {
 	background-color: blue;
 	background-image:linear-gradient(to right,#DFE720,#1CD29A,#DFE720);
 }
+
+.pagination li.active {
+    background-color: #afeac5;
+    padding:4px;
+}
+
+
+.pagination li{
+    margin-left:2px;
+    margin-right: 2px;
+}
+.page-item{
+    width:20px;
+}
+.pagination li.disabled{
+    display:none;
+}
