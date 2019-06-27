@@ -48,8 +48,10 @@ Route::get('/tasks/{task}/mcq', 'McqController@getMcqDetails');
 Route::post('/tasks/{task}/savemcq', 'McqController@mcqstore');
 Route::get('/tasks/{task}/emittrats','McqController@recordtime');
 
+
 //Assignment route
 Route::post('/tasks/{task}/assign', 'AssignmentController@assignstore');
+
 
 
 //discussion forum routes
@@ -65,12 +67,14 @@ Route::post('/thread/mark-as-solution','CommentController@markAsSolution')->name
 
 Route::post('comment/like','LikeController@toggleLike')->name('toggleLike');
 
+//mark unread notifications as read
 Route::get('/markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
 });
 
 Route::get('/search', 'ThreadController@searchthread');
 //end of discussion forum routes
+
 
 
 //Chart route

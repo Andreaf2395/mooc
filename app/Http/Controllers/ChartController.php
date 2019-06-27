@@ -31,6 +31,7 @@ class ChartController extends Controller
         $attempted_and_wrong=array();
         $attempted_and_right=array();
         $mcqs=mcq_master::where(['task'=>$id,'c_id'=>$team_course_map->c_id])->get();
+        //populate arrays $unattempted, $attempted_and_wrong and $attempted_and_right
         foreach($mcqs as $mcq){
         	$no_unattempted=TeamMcqDetails::where('mcq_master_id',$mcq->id)->whereNull('chosen_option')->count();
         	$no_correct=TeamMcqDetails::where(['mcq_master_id'=>$mcq->id,'chosen_option'=>$mcq->correct_option])->count();

@@ -22,8 +22,10 @@ class CommentController extends Controller
 
         //$thread->comments()->save($comment);
 
+        //comment is created in comments table using function addComment() which is defined in CommentableTrait
         $thread->addComment($request->body);
 
+        //notify the user who created the thread 
         $thread->login->notify(new RepliedToThread($thread));
 
         return back()->withMessage('comment created');
@@ -41,6 +43,7 @@ class CommentController extends Controller
 
         //$comment->comments()->save($reply);
 
+        //adding replies to comments
         $comment->addComment($request->body);
 
         return back()->withMessage('reply created');
@@ -73,6 +76,7 @@ class CommentController extends Controller
     }
 
 
+    //make a comment as solution by changing the value in solution to 1
     public function markAsSolution()
     {
         $solutionId = Input::get('solutionId');

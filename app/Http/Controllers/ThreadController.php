@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 class ThreadController extends Controller
 {
     
+    //authentication required for all the below functions 
     function __construct()
     {
         return $this->middleware('auth');
@@ -19,6 +20,8 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //show threads pertaining to the tag selected
     public function index(Request $request)
     {
         if($request->has('tags')){
@@ -49,14 +52,17 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-         $this->validate($request, [
+        //validations
+        $this->validate($request, [
             'subject' => 'required|min:5',
             'tags'    => 'required',
             'thread'  => 'required|min:10',
             'g-recaptcha-response' => 'required|captcha'
         ]);
+        
         //store
         //return $request->all();
+        //create the user's thread and create entries in the intermediate table tag_thread that shows the many-to-many relationship between tags and threads
         $thread = auth()->user()->threads()->create($request->all());
         $thread->tags()->attach($request->tags);
         
@@ -73,7 +79,7 @@ class ThreadController extends Controller
      */
     public function show(thread $thread)
     {
-        //
+        //show the single thread and its comments and replies to comments
         return view('thread.single',compact('thread'));
     }
 
@@ -97,15 +103,20 @@ class ThreadController extends Controller
      */
     public function update(Request $request, thread $thread)
     {
+        //check if the user is authorized to edit the thread
         if(auth()->user()->id !== $thread->login_id){
             abort(401,"unauthorized");
         }
+        //validations
         $this->validate($request, [
             'subject' => 'required|min:5',
-            'type'    => 'required',
+            'tags'    => 'required',
             'thread'  => 'required|min:10'
         ]);
+        //delete the existing tags from tag_thread and update the threads table and attach new tags
+        $thread->tags()->detach();
         $thread->update($request->all());
+        $thread->tags()->attach($request->tags);
         return redirect()->route('thread.show', $thread->id)->withMessage('Thread Updated!');
     }
 
@@ -117,6 +128,7 @@ class ThreadController extends Controller
      */
     public function destroy(thread $thread)
     {
+        //check if the user is authorized to delete the thread
         if(auth()->user()->id !== $thread->login_id){
             abort(401,"unauthorized");
         }
@@ -128,6 +140,7 @@ class ThreadController extends Controller
     public function searchthread(Request $request)
     {
         //dd(request());
+        //search the threads based on the search entry given by the user
         $query=request('query');
         $threads = thread::search($query)->paginate(15);
         return view('thread.index', compact('threads'));

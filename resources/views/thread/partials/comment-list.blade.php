@@ -1,7 +1,8 @@
 <br><br>
-<div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$thread->created_at->diffForHumans()}}</div>
+<div class="author"> {{$comment->user->username}} &nbsp;&nbsp;&nbsp;<i class="tiny material-icons">access_time</i>&nbsp;&nbsp;{{$comment->created_at->diffForHumans()}}</div>
 <div style="float:right;">
     
+    {{--show solution or option to mark as solution if the thread belongs to user--}}
     @if($comment->solution)
         <div class="chip teal">Solution</div>
     
@@ -41,7 +42,7 @@
     <span class="btn-floating btn-small waves-effect waves-light {{$comment->isLiked()?'liked':''}}" onclick="likeIt('{{$comment->id}}',this)"><i class="tiny material-icons">thumb_up</i></span>
 
 
-    
+    {{--show edit and delete options if comment belongs to user--}}
     @if(auth()->user()->id == $comment->user_id)
     <!--<a href="{{route('thread.edit',$thread->id)}}" class="btn btn-info btn-xs">Edit</a>-->
     <a class="btn-floating btn-small waves-effect waves-light blue modal-trigger"  href="#com{{$comment->id}}"><i class="material-icons small">edit</i></a>
@@ -71,6 +72,7 @@
     </form>
     @endif
 
+    {{--reply form--}}
     <button  class="btn btn-small" id="reply-btn-{{$comment->id}}" onclick="toggleReply('{{$comment->id}}')"> reply</button>
                 <!--reply to comment-->
         <div id="reply-form-{{$comment->id}}" class="reply-form col m10 offset-m2" style="display: none;">
@@ -84,6 +86,8 @@
             </form>
             
         </div>
+    
+    
 
 </div>
 
@@ -95,12 +99,13 @@
 
         });
        
-
+        //function to handle current liking of the comment
         function likeIt(commentId,elem){
             var csrfToken='{{csrf_token()}}';
             var likesCount=parseInt($('#'+commentId+"-count").text());
             $.post('{{route('toggleLike')}}', {commentId: commentId,_token:csrfToken}, function (data) {
                 console.log(data);
+                //if message is liked then count is incremented,if unliked then it is decremented
                 if(data.message==='liked'){
                     $(elem).addClass('liked');
                     $('#'+commentId+"-count").text(likesCount+1);
@@ -114,9 +119,9 @@
         }
 
 
-            function toggleReply(commentid){
-                 $('#reply-form-'+commentid).toggle();
-            }
+        function toggleReply(commentid){
+             $('#reply-form-'+commentid).toggle();
+        }
 
     </script>
 @endsection

@@ -30,6 +30,7 @@ class Login extends Authenticatable
     	return 'username';
     }
 
+    //user has many threads
     public function threads()
     {
         return $this->hasMany(thread::class);

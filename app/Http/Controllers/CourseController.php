@@ -37,6 +37,7 @@ class CourseController extends Controller
 		//date_default_timezone_set('Asia/Kolkata');
 	    $current = Carbon::now();
 		$deadline= new Carbon($task_schedule->end_date);
+		//flag to check if deadline is over
 	    $time_up=$current->greaterThan($deadline);
 
 		$task=task::firstornew(['team_id'=>$team_id,'task_id'=>$id]);
