@@ -14,7 +14,7 @@ class Thread extends Model
 
     protected $searchable = [
         'columns' => [
-            'comments.body'=>10,
+            'comments.body'=>5,
             'threads.subject' => 10,
             'threads.thread' => 8,
         ],
@@ -23,18 +23,16 @@ class Thread extends Model
          ],
     ];
 
+    //eloquent relationship to show a thread belongs to a user
     public function login()
     {
     	return $this->belongsTo(Login::class);
     }
 
-    public function comments()
-    {
-    	return $this->morphMany(comment::class,'commentable')->latest();
-    }
-
+    //defining many to many relationship between tags and threads
     public function tags()
     {
+        //tag_thread is the intermediate table 
         return $this->belongsToMany(Tag::class,'tag_thread');
     }
 }

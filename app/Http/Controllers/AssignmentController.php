@@ -28,6 +28,7 @@ class AssignmentController extends Controller
             'submission_type'=>['required']
         ]);
     	//return $type;
+        //setting validations based on the type of assignment chosen
         switch ($type) {
             case 1:
                 request()->validate([
@@ -69,6 +70,7 @@ class AssignmentController extends Controller
         //date_default_timezone_set('Asia/Kolkata');
         $current = Carbon::now();
         $deadline= new Carbon($task_schedule->end_date);
+        //$time_up is a flag specifying if deadline is over
         $time_up=$current->greaterThan($deadline);
         $task_status=task::where('team_id',$team_member_detail->team_id)->where('task_id',$id)->first();
 
@@ -130,6 +132,7 @@ class AssignmentController extends Controller
         $current = Carbon::now();
         $task_status=task::firstornew(['team_id'=>$team_member_detail->team_id,'task_id'=>$id]);
 
+        //if assignment is a file and not a link
         if($sub_type!=2)
         {
             if($request->hasFile('assignment'))
@@ -167,6 +170,7 @@ class AssignmentController extends Controller
         }
         else
         {
+            //when assignment is a link
             if($task_status->assign_id)
             {
                 $assignment=assignment::where('id',$task_status->assign_id)->first();

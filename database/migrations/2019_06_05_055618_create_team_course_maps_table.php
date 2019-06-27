@@ -16,6 +16,7 @@ class CreateTeamCourseMapsTable extends Migration
         Schema::create('team_course_maps', function (Blueprint $table) {
             $table->bigIncrements('team_id');
             $table->unsignedBigInteger('c_id');
+            $table->Integer('mail_flag')->default(0);
             $table->timestamps();
             $table->foreign('c_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
         });

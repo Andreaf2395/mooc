@@ -6,9 +6,11 @@ use App\Model\comment;
 use App\Model\thread;
 use Illuminate\Http\Request;
 use App\Notifications\RepliedToThread;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Facades\Input;
 use Log;
 
+
+//use Symfony\Component\HttpFoundation\StreamedResponse;//used for realtime (sse)
 class CommentController extends Controller
 {
     
@@ -23,8 +25,10 @@ class CommentController extends Controller
 
         //$thread->comments()->save($comment);
 
+        //comment is created in comments table using function addComment() which is defined in CommentableTrait
         $thread->addComment($request->body);
 
+        //notify the user who created the thread 
         $thread->login->notify(new RepliedToThread($thread));
 
         return back()->withMessage('comment created');
@@ -71,6 +75,7 @@ class CommentController extends Controller
 
         //$comment->comments()->save($reply);
 
+        //adding replies to comments
         $comment->addComment($request->body);
 
         return back()->withMessage('reply created');
@@ -101,4 +106,18 @@ class CommentController extends Controller
         $comment->delete();
         return back()->withMessage('Deleted');
     }
+
+
+    //make a comment as solution by changing the value in solution to 1
+    public function markAsSolution()
+    {
+        $solutionId = Input::get('solutionId');
+        //$threadId = Input::get('threadId');
+        $comment = comment::find($solutionId);
+        $comment->solution = 1;
+        if ($comment->save()) {
+            return back()->withMessage('Marked as solution');
+        }
+    }
+
 }

@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //to make tags accessible everywhere
         View::share('tags', Tag::all());
     }
 }

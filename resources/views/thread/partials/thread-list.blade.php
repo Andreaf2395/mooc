@@ -7,6 +7,7 @@
 @endsection
 <div class="list-group">
 
+    {{--displaying the thread list--}}
 	@forelse($threads as $thread)
         <div class="row">
             <a href="{{route('thread.show',$thread->id)}}" style="text-decoration: none;">
@@ -16,8 +17,8 @@
                     <span class="card-title teal-text ">{{$thread->subject}}</span>
 
             
-                    <p>{{str_limit($thread->thread,100) }}
-                      </p>  
+                    <p>{{str_limit($thread->thread,100) }}</p>
+
                     <h6 class="grey-text" style="font-size:13px;">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</h6>
                 
             	</div>

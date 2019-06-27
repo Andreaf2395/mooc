@@ -42,11 +42,15 @@
 </head>
 <body>
 
+
 	<header>
    		@include('includes.header')
 	</header>
 	@yield('banner')
 	<main class="container">
+<!-- 		@include('layouts.partials.error')
+		@include('layouts.partials.success')
+	 -->
         <div class="row">
 			<div class="col m3 s12">
 					@include('layouts.partials.categories')
@@ -56,6 +60,7 @@
 				<div style="margin-left:10px;">
 					@yield('content')
 				</div>
+
 			</div>
 		</div>
 	

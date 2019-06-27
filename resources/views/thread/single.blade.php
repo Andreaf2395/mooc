@@ -18,7 +18,7 @@
             <div class="thread-details" >
                 {!!\Michelf\Markdown::defaultTransform($thread->thread)!!}
             </div>
-            
+            {{--if the thread belongs to the user show edit and delete options--}}
             @if(auth()->user()->id == $thread->login_id)
                 
                     <a href="{{route('thread.edit',$thread->id)}}" class="btn-floating btn-small waves-effect waves-light blue" class="action-element"><i class="material-icons small">edit</i></a>
@@ -40,7 +40,7 @@
     </div>
 
     
-
+    {{--display comments--}}
     @foreach($thread->comments as $comment)    
 
         <div >        
@@ -51,6 +51,8 @@
 
         <br>
         <div class="col m10 offset-m2">
+            
+            {{--display replies for comments--}}
             @foreach($comment->comments as $reply)
             
             <div class="small well reply-list">
@@ -59,6 +61,7 @@
 
                 
                 <div >
+                    {{--if user is authorized, show edit and delete options--}}
                     @if(auth()->user()->id == $reply->user_id)
                     <a class="btn-floating btn-small waves-effect waves-light blue modal-trigger" href="#reply{{$reply->id}}"><i class="material-icons small">edit</i></a>
                    

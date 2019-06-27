@@ -29,6 +29,8 @@ class RepliedToThread extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+
+    //store notifications in database
     public function via($notifiable)
     {
         return ['database'];
@@ -40,6 +42,8 @@ class RepliedToThread extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+
+    //information that has to be stored under data field in notifications table
     public function toDatabase($notifiable)
     {
         return [

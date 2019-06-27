@@ -42,11 +42,16 @@ Route::get('/courses', function(){
 
 Route::get('/tasks/{task}','CourseController@getTask')->name('taskpage');
 
+
+//MCQ routes
 Route::get('/tasks/{task}/mcq', 'McqController@getMcqDetails');
 Route::post('/tasks/{task}/savemcq', 'McqController@mcqstore');
 Route::get('/tasks/{task}/emittrats','McqController@recordtime');
 
+
+//Assignment route
 Route::post('/tasks/{task}/assign', 'AssignmentController@assignstore');
+
 
 
 //discussion forum routes
@@ -58,15 +63,26 @@ Route::post('comment/create/{thread}', 'CommentController@addThreadComment')->na
 
 Route::post('reply/create/{comment}', 'CommentController@addReplyComment')->name('replycomment.store');
 
-Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name('markAsSolution');
+Route::post('/thread/mark-as-solution','CommentController@markAsSolution')->name('markAsSolution');
 
 Route::post('comment/like','LikeController@toggleLike')->name('toggleLike');
 
+//mark unread notifications as read
 Route::get('/markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
 });
 
-Route::get('/thread/search','ThreadController@search');
+Route::get('/search', 'ThreadController@searchthread');
+//end of discussion forum routes
+
+
+
+//Chart route
+Route::get('/chart/{task}', 'ChartController@showchart');
+
+
+//Team status
+Route::get('/status', 'StatusController@showstatus');
 
 //realtime notification
 //Route::get('/notification/push','CommentController@commentNotificationPush');

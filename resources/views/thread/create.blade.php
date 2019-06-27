@@ -30,6 +30,7 @@
                     <label for="thread">Thread</label>
                 </div>
 
+                {{--To display the captcha--}}
                 <div class="input-field col s12">
                     {!!NoCaptcha::renderJs()!!}
                     {!!NoCaptcha::display()!!}

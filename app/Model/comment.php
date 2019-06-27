@@ -15,6 +15,7 @@ class comment extends Model
     	return $this->morphTo();
     }
 
+    //relationship to show comment belongs to a user
     public function user()
     {
     	return $this->belongsTo(Login::class);

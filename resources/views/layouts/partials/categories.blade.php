@@ -1,6 +1,5 @@
-
 	<div class="row">
-		<form method="GET" action="/thread/search">
+		<form method="GET" action="/search">
 	        
 	        <input type="search" name="query" placeholder="Search">
 	        
