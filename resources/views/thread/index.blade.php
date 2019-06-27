@@ -1,14 +1,11 @@
 @extends('layouts.front')
 
 @section('heading')
-
-	<a class="waves-effect waves-light btn" href="{{route('thread.create')}}">Create thread</a>
-
 @endsection
+
+
 @section('content')
-
-
+<div class="row col s12 m12">
 @include('thread.partials.thread-list')
-
-
+</div>
 @endsection

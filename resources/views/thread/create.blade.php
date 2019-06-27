@@ -1,24 +1,22 @@
 @extends('layouts.front')
 
-@section('heading',"create thread")
+@section('heading',"Create Thread")
 
 @section('content')
-     @include('layouts.partials.error')
+    @include('layouts.partials.error')
     @include('layouts.partials.success')
     
 
     <div class="row">
-        <div class="col-md-12">
-            <form  action="{{route('thread.store')}}" method="post" 
-                  id="create-thread-form">
+        
+            <form  action="{{route('thread.store')}}" method="post" id="create-thread-form">
                 {{csrf_field()}}
                 <div class="input-field col s12">
-                    <input type="text" class="form-control" name="subject" id="" placeholder="Input..."
-                           value="{{old('subject')}}">
+                    <input type="text" class="form-control" name="subject" id="" value="{{old('subject')}}">
                     <label for="subject">Subject</label>       
                 </div>
 
-                <div class="form-group">
+                <div class="input-field col s12">
                     <label for="tag">Tags</label>
                     <select name="tags[]" multiple id="tag">
                         @foreach($tags as $tag)
@@ -28,7 +26,7 @@
                 </div>
 
                 <div class="input-field col s12">           
-                    <textarea class="materialize-textarea" name="thread" id="" placeholder="Input...">{{old('thread')}}</textarea>
+                    <textarea class="materialize-textarea" name="thread">{{old('thread')}}</textarea>
                     <label for="thread">Thread</label>
                 </div>
 
@@ -37,19 +35,31 @@
                     {!!NoCaptcha::display()!!}
                 </div>
 
-                <button type="submit" class="waves-effect waves-light btn">Submit</button>
+                <div class="input-field col s12">
+                    <button type="submit" class="waves-effect waves-light btn">Submit</button>
+                </div>
+                
             </form>
-        </div>
+        
     </div>
 
 @endsection
 
-@section('js')
+@section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
-
+    
     <script>
         $(function () {
-            $('#tag').selectize();
+            $('#tag').selectize({
+    delimiter: ',',
+    persist: false,
+    create: function(input) {
+        return {
+            value: input,
+            text: input
+        }
+    }
+});
         })
     </script>
 @endsection

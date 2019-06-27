@@ -68,5 +68,5 @@ Route::get('/markAsRead',function(){
 
 Route::get('/thread/search','ThreadController@search');
 
-
-
+//realtime notification
+//Route::get('/notification/push','CommentController@commentNotificationPush');

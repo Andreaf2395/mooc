@@ -18,33 +18,11 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <style type="text/css">
-            body {
-                display: flex;
-                min-height: 100vh;
-                flex-direction: column;
-            }
-
-            main {
-                flex: 1 0 auto;
-            }
-            .sidenav, #sidenav-overlay {
-                top: 65px;
-                height: 65%;
-            }
 
 
-            /*.divider {
-                margin: 0.5em 0 0.5em 0;
-                border: 0;
-                height: 1px;
-                width: 100%;
-                display: block;
-                background-color: blue;
-                background-image: linear-gradient(to right,pink,blue,pink);
-            }*/
-        </style>
-  @yield('style')
+    <!--custom made css-->
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    @yield('style')
 </head>
 <body>
     <header>
@@ -56,5 +34,8 @@
        @include('includes.footer')
 
    @yield('scripts')
+   <!-- Some standard materialize functions -->
+    <script type="text/javascript" src="{{asset('js/main_layout.js')}}"></script>
+      
 </body>
 </html>

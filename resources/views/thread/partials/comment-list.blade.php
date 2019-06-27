@@ -29,7 +29,7 @@
         <div class="chip" id="{{$comment->id}}-count" >{{$comment->likes()->count()}}</div>
     </div>
     <div class="col s11 m11">
-        <blockquote style="word-wrap: break-word;">{{$comment->body}}</blockquote>
+        <blockquote>{{$comment->body}}</blockquote>
     </div>
 
 </div>
@@ -55,7 +55,7 @@
             <form action="{{route('comment.update',$comment->id)}}" method="post" >
                 {{csrf_field()}}
                 {{method_field('put')}}
-                <div class="input-field col s6">
+                <div class="input-field col s11 m11">
                     <textarea type="text" class="materialize-textarea" name="body" id="" >{{$comment->body}}</textarea>        
                 </div>
 
@@ -92,7 +92,7 @@
 </div>
 
 
-@section('js')
+@section('scripts')
     <script>
            $(document).ready(function(){
             $('.modal').modal();

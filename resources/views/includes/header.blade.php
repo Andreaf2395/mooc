@@ -11,12 +11,6 @@
                 <span class="new badge">{{count(auth()->user()->unreadNotifications)}}</span>
                 </a>
                 <ul id="dropdown2" class="dropdown-content">
-                    <li>@forelse(auth()->user()->unreadNotifications as $notification)
-                            @include('layouts.partials.notification.'.snake_case(class_basename($notification->type)))
-                        @empty
-                        <a href="#">No unread notifications</a>
-                        @endforelse
-                    </li>
                 </ul>
             </li>
             <li style="font-size: 25px;">|</li>
@@ -36,9 +30,40 @@
 </div>
 
 
+
+    
+
 <script>
         $(document).ready(function(){
             $(".dropdown-trigger").dropdown({ hover: false,constrainWidth: false});
         });
+
+        function markNotificationAsRead(notificationCount) {
+            if(notificationCount !=='0'){
+                $.get('/markAsRead');
+            }
+        }
+
+
+//code for realtime notification
+/* 
+        var es = new EventSource("/notification/push");
+        es.addEventListener("message", function(e) {
+          
+           if(e.data != ''){
+            let noti =JSON.parse(e.data)[0]; 
+            console.log(noti);
+            console.log('thread id is'+noti.data.thread.id);
+            console.log('updated by '+noti.data.login.username);
+            console.log('thread sub: '+noti.data.thread.subject);
+            $('#dropdown2').append('<li><a href="/thread/'+noti.data.thread.id+'">'+ noti.data.login.username + " commented on <strong>" + noti.data.thread.subject + "</strong></a></li>");
+              
+
+           }
+      
+            
+        }, false);
+*/
+
 </script>
 

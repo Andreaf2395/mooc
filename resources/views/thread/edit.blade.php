@@ -1,14 +1,13 @@
 @extends('layouts.front')
 
-@section('heading',"edit thread")
+@section('heading',"Edit Thread")
 
 @section('content')
 
 	
 
-	<div class="row">
-        <div class="col-md-12">
-            <form class="card-panel" action="{{route('thread.update',$thread->id)}}" method="post" 
+	<div class="row col-md-12">
+            <form action="{{route('thread.update',$thread->id)}}" method="post" 
                   id="create-thread-form">
                 {{csrf_field()}}
                 {{method_field('put')}}
@@ -30,7 +29,6 @@
           
                 <button type="submit" class="waves-effect waves-light btn">Submit</button>
             </form>
-        </div>
     </div>
 
 @endsection

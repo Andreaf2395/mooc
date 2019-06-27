@@ -8,7 +8,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Thread extends Model
 {
-    use CommentableTrait,SearchableTrait;
+    use CommentableTrait;
     
     protected $fillable=['subject','thread','login_id'];
 

@@ -1,59 +1,21 @@
 @extends('layouts.front')
 
-@section('style')
-<style type="text/css">
-    .thread-box{
-        padding:10px;
-        border:1px solid #e0d9d9;
-        border-radius: 10px;
-    }
-    .thread-content{
-        background-color:#eaf5e6;
-        padding:10px;
-        border-radius: 10px;
-    }
-    .author{
-        display: inline-block;color:grey; font-size:15px;
-    }
-    blockquote {
-    border-left: 3px solid grey;
-    }
-    .reply-blockquote {
-    border-left: 2px solid grey;
-    padding-left:10px;
-    }
-    .action-element{
-        display:inline-block;
-    }
-    .modal{
-        height:30%;
-    }
-    .reply-form{
-        margin-left:30px;
-    }
-    .horizontal-divider {
-                margin: 0.5em 0 0.5em 0;
-                border: 0;
-                height: 1px;
-                width: 100%;
-                display: block;
-                background-color: blue;
-                background-image:linear-gradient(to right,#DFE720,#1CD29A,#DFE720);
-    }
-
-</style>
-@endsection
 
 @section('content')
 
 
 <div class="thread-box">
     <div class="thread-content">
-        <div class="content-wrap ">
+        <div>
+            <span>
+                @foreach($thread->tags as $tag)
+                    <span class="badge green white-text" >{{$tag['name']}}</span>
+                @endforeach
+            </span>
             <h4 class="teal-text">{{$thread->subject}}</h4>
             <hr>
 
-            <div class="thread-details">
+            <div class="thread-details" >
                 {!!\Michelf\Markdown::defaultTransform($thread->thread)!!}
             </div>
             
@@ -69,10 +31,10 @@
                     </form>
                 
             @endif
+            
+                
                <span style="float:right;" class="author">Posted by {{$thread->login->username}} {{$thread->created_at->diffForHumans()}}</span>
-            @foreach($thread->tags as $tag)
-                <span class="badge green white-text left">{{$tag['name']}}</span>
-            @endforeach           
+                       
         </div>
 
     </div>
